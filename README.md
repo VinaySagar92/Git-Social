@@ -13,4 +13,4 @@ Technologies Involved:
 2. Spark SQL: The GitHub Archive data consists of inconsistent schema and needs filtering and batch processing. The information from the other sources gives you the relation between users to the users they follow, users to the repositories that they commit on, repositories and their corresponding topics. The data to be sent to the database needs to be remodeled and processed.
 3. Kafka: The data from GitHub API is fed through Kafka to Spark.
 4. Cassandra/Redis: The data from Spark is kept in three tables(User to Users, User to Repos, Repos to Topics).
-
+5. Flask/Dash: The dashboard is created to search for the username for which you can look at the visulaization of network and a list of topics and corresponding users and the repsoitories that they are working on.
