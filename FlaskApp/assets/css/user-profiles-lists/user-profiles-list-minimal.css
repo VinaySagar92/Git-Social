@@ -1,0 +1,53 @@
+
+
+.user-profiles-list-minimal{
+    list-style:none;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 750px;
+    padding: 0;
+}
+
+.user-profiles-list-minimal li{
+    display: inline-block;
+    box-sizing:border-box;
+
+    text-align:left;
+    font:normal 14px sans-serif;
+    padding: 15px;
+
+    min-width:200px;
+}
+
+.user-profiles-list-minimal .user-avatar{
+    float: left;
+    padding-right: 10px;
+}
+
+.user-profiles-list-minimal .user-avatar img{
+    border-radius: 50%;
+    border:0;
+}
+
+.user-profiles-list-minimal .user-name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    margin: 5px 0 0;
+    max-width: 160px;
+}
+
+.user-profiles-list-minimal .user-name a{
+    color:#5d6569;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.user-profiles-list-minimal .user-name span{
+    display: block;
+    font-size: 11px;
+    color:#808d93;
+    padding-top:4px;
+    font-weight: normal;
+}
+

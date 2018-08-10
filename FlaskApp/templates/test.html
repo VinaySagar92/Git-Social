@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>User to Repo</title>
+    
+    <link rel="stylesheet" href="assets/css/user-profiles-lists/user-profiles-list-minimal.css">
+    
+<style>
+
+    .search {
+    height: 100%;
+    width: 100%;
+   	margin-top: 130px;
+    }
+
+    .search-content {
+    position: relative;
+    top: 46%;
+    width: 80%;
+    text-align: center;
+    margin-top: 30px;
+    margin: auto;
+    }
+    </style>
+
+</head>
+<body>
+    
+
+
+    <h2>User to Repo</h2>
+
+        <div id="myOverlay" class="search">
+          <div class="search-content">
+            <form action="/test" method="post" autocomplete="off">
+              <input type="text" placeholder="Search.." name="user" id="user" value="{{user}}" >
+              <button type="submit"><i class="fa fa-search"></i></button>
+
+            </form>
+          </div>
+        </div>
+
+    <ul class="user-profiles-list-minimal">
+
+{% for doc in response %}	
+<li>
+    <div class="user-avatar">
+         <a href="#">
+ 		<img src="assets/images/avatars/2.jpg" width="41" alt="Profile of Jeniffer Johnson" />
+ 	 </a>
+    </div>
+    
+    <p class="user-name">
+                <a href="">{{doc}}</a><br><br><br>            
+    </p>
+
+</li>
+{% endfor %}
+    </ul>
+
+</body>
+
+</html>
