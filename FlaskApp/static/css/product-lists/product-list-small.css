@@ -1,0 +1,88 @@
+
+
+.product-list-small{
+    list-style:none;
+    margin: 0 auto;
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+}
+
+.product-list-small li{
+    display: inline-block;
+    box-sizing:border-box;
+
+    text-align:left;
+    font:bold 18px sans-serif;
+
+    background-color:#ffffff;
+    border:1px solid #dbe3e7;
+    border-radius: 3px;
+    box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.08);
+
+    max-width:250px;
+    margin: 10px;
+    padding: 25px;
+}
+
+/* The product image */
+
+.product-list-small .product-photo{
+    display: block;
+    text-align: center;
+    box-shadow : 0 0 20px 8px #f3f3f3 inset;
+    width: 200px;
+    margin-bottom: 20px;
+    padding: 12px 25px;
+    box-sizing:border-box;
+}
+
+/* The product name */
+
+.product-list-small h2{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    margin:0;
+    font-size:16px;
+}
+
+.product-list-small h2 a{
+    text-decoration: none;
+    color: #2b2b2b;
+}
+
+/* The star product rating */
+
+.product-list-small .product-rating{
+    display: block;
+
+    color: #f09911;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+
+    width: 80px;
+    margin: 7px -2px;
+}
+
+.product-list-small .product-rating i{
+    margin-left: 2px;
+}
+
+.product-list-small .product-description{
+    font-size: 14px;
+    font-weight: normal;
+    color: #5d5d5d;
+    line-height: 1.45;
+
+    margin-bottom: 20px;
+}
+
+.product-list-small .product-price{
+    color:  #4e4e4e;
+    font-size: 20px;
+    margin: 0;
+}
+

@@ -1,0 +1,106 @@
+
+
+.image-list-basic {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 640px;
+    padding: 0;
+}
+
+.image-list-basic li {
+    display: inline-block;
+    position: relative;
+    width: 274px;
+    margin: 0 12px 36px;
+}
+
+/* The photo */
+
+.image-list-basic li > a {
+    display: block;
+    text-decoration: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 197px;
+    border: 4px solid #ffffff;
+    outline: 1px solid #d0d0d0;
+    box-shadow: 0 2px 1px #DDD;
+}
+
+.image-list-basic li .image-details {
+    margin-top: 13px;
+}
+
+/* Title */
+
+.image-list-basic li .image-details h3 {
+    color:  #303030;
+    font-size: 13px;
+    margin: 0 0 3px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Author and upload date */
+
+.image-list-basic li .image-details p a {
+    text-decoration: none;
+    color: #599cc7;
+    font-size: 11px;
+    font-weight: normal;
+}
+
+.image-list-basic li .image-details p {
+    color:  #717171;
+    font-size: 11px;
+    font-weight: normal;
+    padding: 0;
+    margin: 6px 0 0 0;
+}
+
+/* Image buttons */
+
+.image-list-basic li .image-buttons {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 32%;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    cursor: default;
+}
+
+.image-list-basic li .image-buttons a {
+    display: inline-block;
+    margin: 0 5px auto;
+    border-radius: 6px;
+    background-color: rgba(39, 39, 39, 0.8);
+    color: #ffffff;
+    font-size: 23px;
+    line-height: 2;
+    text-align: center;
+    width: 48px;
+    height: 43px;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+.image-list-basic li:hover .image-buttons {
+    opacity: 1;
+}
+
+.image-list-basic li .image-buttons a.favorite:hover {
+    background-color: rgba(244, 182, 240, 0.8);
+}
+
+.image-list-basic li .image-buttons a.add-to-collection:hover {
+    background-color: rgba(155, 193, 220, 0.8);
+}
+
+.image-list-basic li .image-buttons a.share:hover {
+    background-color: rgba(182, 220, 152, 0.8);
+}
+
