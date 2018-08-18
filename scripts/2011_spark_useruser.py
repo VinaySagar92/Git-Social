@@ -33,9 +33,9 @@ hadoop_conf.set("fs.s3a.awsAccessKeyId", os.environ['AWS_ACCESS_KEY_ID'])
 hadoop_conf.set("fs.s3a.awsSecretAccessKey", os.environ['AWS_SECRET_ACCESS_KEY'])
 
 # reading events data for 2011 from S3
-#df11 = spark.read.json("s3a://vinaysagar-bucket/2011/2011-*.json.gz")
+df11 = spark.read.json("s3a://vinaysagar-bucket/2017/2017-*.json.gz")
 #df11 = spark.read.json("s3a://vinaysagar-bucket/2011/2011-000000000000.json.gz")
-df11 = spark.read.json("s3a://vinaysagar-bucket/2017/2017-00000000000*.json.gz")
+#df11 = spark.read.json("s3a://vinaysagar-bucket/2017/2017-0000000001*.json.gz")
 
 #df11 = spark.read.json("s3a://vinaysagar-bucket/2018/2018-jan-*.json.gz")
 
