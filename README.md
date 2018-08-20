@@ -1,6 +1,6 @@
 # Git-Social
 Insight Data Engineering project to find the repositories that the users you follow on GitHub are working on based on the topics
-## Git-Social
+
 ### Project Idea:
 To facilitate social network users to make the most out of their network.
 Motivation and Business Case:
@@ -13,8 +13,8 @@ This time can be reduced, and the network can be efficiently utilized if there i
 a)	users and who they follow
 b)	repos and the corresponding topics
 The API has a limit of 5000 request per access token per hour. This creates a data collection issue as there are more than 40M records that must be collected. So, the relations of users to who they follow, and the repos and the corresponding topics have been simulated.
-Pipeline:
- 
+### Pipeline:
+!.[].(static/images/pipeline.png)
 ### AWS Clusters:
 There are 3 main clusters as part of the pipeline:
 •	6 m3.large for Spark() cluster
