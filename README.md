@@ -36,7 +36,7 @@ The invertion of relation is possible by joining the data from different sources
 The interim dataframes that are operated on are cached to improve the performance by 10 times.
 #### Aggregations:
 The aggregation can be a costly operation in a distributed envionment as it involves a shuffle operation. Using GroupByKey, every key-value pair gets shuffled across the network. I have chosen to use CombineByKey which combines the values at a partition level and then shuffles them. This reduced the amount of network traffic and imroved the performance.
-### Modeling:
+#### Modeling:
 The data is formed as a key-value pairs after aggregation to be fed to my database.
 ## 3.	Serving Layer:
 Cassandra: The data from Spark is kept in three tables(User to Users, User to Topics, Topics to Users). It is a key-value form of a time-series data which has time as a clustering key.
@@ -44,6 +44,6 @@ Cassandra: The data from Spark is kept in three tables(User to Users, User to To
 The dashboard is created using Flask to search for the username for which you can look at the visualization of network and a list of topics and corresponding users that are working on those topics.
 
 # Links to my works:
-## Google Slides: (http://bit.ly/gitSocial-slides)
-## Demo: (http://bit.ly/gitSocial-web)
-## LinkedIn: (https://linkedin.com/in/vinay92)
+#### Google Slides: (http://bit.ly/gitSocial-slides)
+#### Demo: (http://bit.ly/gitSocial-web)
+#### LinkedIn: (https://linkedin.com/in/vinay92)
