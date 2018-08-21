@@ -13,7 +13,6 @@ from datetime import datetime
 
 # Creating a Cluster object to connect to Cassandra cluster and keyspace
 cluster = Cluster(['54.218.131.115', '54.245.65.143', '54.203.126.6', '52.26.161.169'])
-#session = cluster.connect('events')
 
 # Creating SparkSession, Spark Context and SQL Context Objects
 spark = SparkSession.builder \
@@ -33,38 +32,15 @@ hadoop_conf.set("fs.s3a.awsAccessKeyId", os.environ['AWS_ACCESS_KEY_ID'])
 hadoop_conf.set("fs.s3a.awsSecretAccessKey", os.environ['AWS_SECRET_ACCESS_KEY'])
 
 # reading events data for 2011 from S3
-df11 = spark.read.json("s3a://vinaysagar-bucket/2017/2017-*.json.gz")
-#df11 = spark.read.json("s3a://vinaysagar-bucket/2011/2011-000000000000.json.gz")
-#df11 = spark.read.json("s3a://vinaysagar-bucket/2017/2017-00000000000*.json.gz")
+#df11 = spark.read.json("s3a://vinaysagar-bucket/2017/2017-*.json.gz")
+#df11 = spark.read.json("s3a://vinaysagar-bucket/2018/2018-*.json.gz")
 
-#df11 = spark.read.json("s3a://vinaysagar-bucket/2018/2018-jan-*.json.gz")
-
-# filtering rows with just the three relevant events
-#df11_watch = df11.filter("type='WatchEvent'")
-#df11_event = df11.filter("type='ForkEvent'")
-#df11_commit = df11.filter("type='CommitCommentEvent'")
-
-# registering  dataframes as tables to be able to select just the three relevant columns
-#sqlContext.registerDataFrameAsTable(df11_watch, "df11_watch_table")
-#sqlContext.registerDataFrameAsTable(df11_commit, "df11_commit_table")
 sqlContext.registerDataFrameAsTable(df11, "df11_event_table")
 
 # creating new dataframes with just the relevant columns
-#df11_watch_altered = sqlContext.sql("SELECT actor, repo, created_at FROM df11_watch_table WHERE actor IS NOT NULL and created_at IS NOT NULL and repo IS NOT NULL")
-#df11_commit_altered = sqlContext.sql("SELECT actor, repo, created_at  FROM df11_commit_table WHERE actor is NOT NULL and created_at IS NOT NULL and repo IS NOT NULL")
 df11_altered_union = sqlContext.sql("SELECT actor, repo, created_at FROM df11_event_table WHERE type = 'ForkEvent' or type = 'CommitCommentEvent' and actor is NOT NULL and created_at IS NOT NULL and repo IS NOT NULL") \
 			.na.drop(subset=('created_at')).persist(pyspark.StorageLevel.MEMORY_ONLY)
-#df11_watch_alter = sqlContext.sql("SELECT actor, repo, type, created_at FROM df11_watch_table WHERE actor IS NULL and created_at IS NOT NULL")
 
-# registering dataframes as tables to get a union of all
-#sqlContext.registerDataFrameAsTable(df11_watch_altered, "df11_watch_altered_table")
-#sqlContext.registerDataFrameAsTable(df11_commit_altered, "df11_commit_altered_table")
-#sqlContext.registerDataFrameAsTable(df11_fork_altered, "df11_fork_altered_table")
-
-# unifying tables with filtered events and columns
-#df11_altered_union = sqlContext.sql("SELECT * from df11_watch_altered_table UNION ALL SELECT * from df11_commit_altered_table UNION ALL SELECT * from df11_fork_altered_table") \
-#		     .na.drop(subset=('created_at')).persist(pyspark.StorageLevel.MEMORY_ONLY)
-#		     .cache()
 sqlContext.registerDataFrameAsTable(df11_altered_union, "df11_altered_union_table")
 
 
@@ -115,78 +91,20 @@ def merg_topic(a, b):
 
 repo_topic = df11_altered.rdd.map(lambda c: {"repo": c.repo.name, "topic": random.choice(top)}).toDF().persist(pyspark.StorageLevel.MEMORY_ONLY)
 
-#print(repo_topic.show())
 
 # Creating the dataframe with topics as a list
 
 # Performing an inner join for the user to topic relation on the two dataframes created
 df_join = user_repo_mapN.join(repo_topic, user_repo_mapN.repo == repo_topic.repo).select("user", "time", "topic").persist(pyspark.StorageLevel.MEMORY_ONLY)
 df_join.explain(True)
-#.persist(StorageLevel.MEMORY)
-#print(df_join.show())
 
-df_join_re = df_join.repartition("user")
-#print(df_join_re.show())
-
-### User to User Mapping
-# creating a list of users to make a mapping
-#df11_user = sqlContext.sql("SELECT actor FROM df11_altered_union_table where actor is NOT NULL")
-#user_map = df11_user.rdd.map(lambda x: {"user": x.actor.login}).toDF().dropna(subset='user')
-
-#user_list = [i.user for i in user_map.collect()]
-
-#def ran_user(a):
-#        b = random.sample(user_list, 5)
-#        return (a.actor.login, b)
-
-#def merg_user(a, b):
-#	for i in b:
-#		a.append(i)
-#	return a;
-
-# mapping users to follow 5 other users
-#user_user = df11_user.rdd.map(ran_user).combineByKey(comb_topic, merg_user, mergComb).map(lambda c: {"user": c[0], "userfollow": c[1]}).toDF()
-# collecting the pipelined RDD as a list to be written to casandra table
-#user_user_db = user_user.dropna(subset=('user')).rdd.map(lambda c: ((c[0], c[1])))
-# writing to cassandra table useruser
-#user_user_db.saveToCassandra("events", "useruser")
-
-
-### User to Repo Mapping
-# grouping all records for a given username to get all repositories that the user is following and has contributed to
-#user_repo_map = df11_altered_union.rdd.map(splitRepo).combineByKey(comb, merg, mergComb).map(lambda c: ((c[0][0], c[0][1], c[1])))
-#user_rep = user_repo_map.toDF().na.drop(subset=('_1', '_2')).rdd.map(lambda c: {"username": c[0], "time": c[1], "repo": c[2]})
-# writing to cassandra table userrepo
-#user_rep.saveToCassandra("events", "userrepo")
-
-
-### User to Topic Mapping
-# grouping all records for a given username to get all topics that the user is following and has contributed to
-user_topic_map = df_join_re.rdd.map(splitTopic).combineByKey(comb, merg, mergComb).map(lambda c: ((c[0][0], c[0][1], c[1])))
-user_topic_db = user_topic_map.toDF().na.drop(subset=('_1', '_2')).rdd.map(lambda c: (c[0], c[1], c[2]))
-# writing to cassandra table usertopic
-#print(user_topic_map.toDF().show())
-print(user_topic_db.toDF().show())
-print(user_topic_db.toDF().dtypes)
-user_topic_db.saveToCassandra("events", "usertopic")
+df_join_re = df_join.repartition("topic")
 
 ### Topic to User Mapping
 # grouping all records for a given topic to get all users who are following and has contributed for
-#topic_user_map = df_join.rdd.map(splitUser).combineByKey(comb, merg, mergComb).map(lambda c: ((c[0][0], c[0][1], c[1])))
-#topic_user_db = topic_user_map.toDF().na.drop(subset=('_1', '_2')).rdd.map(lambda c: ((c[0], c[1], c[2])))
-#print(topic_user_map.toDF().show())
+topic_user_map = df_join.rdd.map(splitUser).combineByKey(comb, merg, mergComb).map(lambda c: ((c[0][0], c[0][1], c[1])))
+topic_user_db = topic_user_map.toDF().na.drop(subset=('_1', '_2')).rdd.map(lambda c: (c[0], c[1], c[2]))
+print(topic_user_db.toDF().show())
+print(topic_user_db.toDF().dtypes)
 # writing to cassandra table topicuser
-#topic_user_db.saveToCassandra("events", "topicuser")
-
-#for val in user_rep:
-#  try:
-#  	print val
-#	session.execute(
-#        """
-#        INSERT INTO userrepo(username, time, repo)
-#        VALUES (%s, %s, %s)
-#        """,
-#        (val['username'], val['time'], val['repo'])
-#	)
-#  except Exception as e:
-#    print e, val
+topic_user_db.saveToCassandra("events", "topicuser")
