@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Journey HTML CSS Template</title>
+    <title>GitSocial</title>
 <!-- 
 Journey Template 
 http://www.templatemo.com/tm-511-journey
@@ -27,19 +27,19 @@ http://www.templatemo.com/tm-511-journey
           <![endif]-->
       </head>
 <style>
-li {
+.tm-container-outer li {
     display: inline-block;
     margin: 5px;
 }
 
-li button{
+.tm-container-outer li button{
     line-height: 10px;
     background: #000;
     color: #fff;
     border-radius: 5px;
     padding: 10px;
 }
-li a{
+.tm-container-outer li a{
     line-height: 40px;
     background: #000;
     color: #fff;
@@ -51,14 +51,14 @@ li a{
 
       <body>
         <div class="tm-main-content" id="top">
-            <div class="tm-top-bar-bg"></div>    
+            <div class="tm-top-bar-bg"></div>
             <div class="tm-top-bar" id="tm-top-bar">
                 <div class="container">
                     <div class="row">
                         <nav class="navbar navbar-expand-lg narbar-light">
                             <a class="navbar-brand mr-auto" href="#">
                                 <img src="{{ url_for('static', filename='img/logo.png')}}" alt="Site logo">
-                                Journey
+                                GitSocial
                             </a>
                             <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
@@ -68,7 +68,7 @@ li a{
                                   <li class="nav-item">
                                     <a class="nav-link active" href="#top">Home <span class="sr-only">(current)</span></a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" href="#tm-section-2">Top Destinations</a>
                                 </li>
                                 <li class="nav-item">
@@ -76,9 +76,9 @@ li a{
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#tm-section-4">Contact Us</a>
-                                </li>
+                                </li> -->
                             </ul>
-                        </div>                            
+                        </div>
                     </nav>
                 </div> <!-- row -->
             </div> <!-- container -->
@@ -94,95 +94,52 @@ li a{
                                 <div class="tm-banner-header">
                                     <h1 class="text-uppercase tm-banner-title">Let's begin</h1>
                                     <img src="{{ url_for('static', filename='img/dots-3.png')}}" alt="Dots">
-                                    <p class="tm-banner-subtitle">We assist you to choose the best.</p>
-                                    <a href="javascript:void(0)" class="tm-down-arrow-link"><i class="fa fa-2x fa-angle-down tm-down-arrow"></i></a>       
-                                </div>    
-                            </div>  <!-- col-xs-12 -->                      
+                                    <p class="tm-banner-subtitle">Please type the GitHub username and the timeframe for the search</p>
+
+                                    <a href="javascript:void(0)" class="tm-down-arrow-link"><i class="fa fa-2x fa-angle-down tm-down-arrow"></i></a>
+                                </div>
+                            </div>  <!-- col-xs-12 -->
                         </div> <!-- row -->
                         <div class="row tm-banner-row" id="tm-section-search">
 
                             <form  action="/gitsocial" method="post" autocomplete="off" class="tm-search-form tm-section-pad-2">
-                                <div class="form-row tm-search-form-row">                                
+                                <div class="form-row tm-search-form-row">
                                     <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
-                                        <label for="inputCity">User to Repository</label>
+                                        <label for="inputCity">Username:</label>
                                         <input name="user" type="text" class="form-control" id="user"  value="{{user}}" placeholder="Type the user name...">
                                     </div>
-                                    <!-- <div class="form-group tm-form-group tm-form-group-1">                                    
-                                        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-2">
-                                            <label for="inputRoom">How many rooms?</label>
-                                            <select name="room" class="form-control tm-select" id="inputRoom">
-                                                <option value="1" selected>1 Room</option>
-                                                <option value="2">2 Rooms</option>
-                                                <option value="3">3 Rooms</option>
-                                                <option value="4">4 Rooms</option>
-                                                <option value="5">5 Rooms</option>
-                                                <option value="6">6 Rooms</option>
-                                                <option value="7">7 Rooms</option>
-                                                <option value="8">8 Rooms</option>
-                                                <option value="9">9 Rooms</option>
-                                                <option value="10">10 Rooms</option>
-                                            </select>                                        
-                                        </div>
-                                        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">                                       
-                                            <label for="inputAdult">Adult</label>     
-                                            <select name="adult" class="form-control tm-select" id="inputAdult">
-                                                <option value="1" selected>1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                            </select>                                        
-                                        </div>
-                                        <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
-
-                                            <label for="inputChildren">Children</label>                                            
-                                            <select name="children" class="form-control tm-select" id="inputChildren">
-                                            	<option value="0" selected>0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                            </select>                                        
-                                        </div>
-                                    </div>-->
-                                </div> <!-- form-row -->
+</div> <!-- form-row -->
                                 <div class="form-row tm-search-form-row">
 
-                                    <!-- <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
-                                        <label for="inputCheckIn">Check In Date</label>
-                                        <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                    <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
+                                        <label for="inputCheckIn">From Date:</label>
+                                        <input name="from-date" type="text" class="form-control" id="inputCheckIn" placeholder="From Date">
                                     </div>
                                     <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
-                                        <label for="inputCheckOut">Check Out Date</label>
-                                        <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
-                                    </div> -->
+                                        <label for="inputCheckOut">Till Date:</label>
+                                        <input name="to-date" type="text" class="form-control" id="inputCheckOut" placeholder="To Date">
+                                    </div>
                                     <div class="form-group tm-form-group tm-form-group-pad tm-form-group-1">
                                         <label for="btnSubmit">&nbsp;</label>
                                         <button type="submit" class="btn btn-primary tm-btn tm-btn-search text-uppercase" id="btnSubmit">Search</button>
                                     </div>
-                                </div>                              
-                            </form>                             
+                                </div>
+                            </form>
 
                         </div> <!-- row -->
                         <div class="tm-banner-overlay"></div>
-                    </div>  <!-- .container -->                   
-                </div>     <!-- .tm-container-outer -->                 
+                    </div>  <!-- .container -->
+                </div>     <!-- .tm-container-outer -->
             </section>
 
-            <section class="p-5 tm-container-outer tm-bg-gray">            
+            <section class="p-5 tm-container-outer tm-bg-gray">
                 <div class="container">
-                    <div class="row">
+                    {% if response %}
+                    <div class="row" style="    background: #ddd;
+    border-radius: 5px;">
                         <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">
+                            <div style="width: 100%;margin-bottom: 25px;
+    border-bottom: 1px solid #69c6ba;"><h2 class="text-uppercase mb-4"> List of Topics that the network of the user selected is working on</h2></div>
                         <ul class="user-profiles-list-minimal">
 
                             {% for doc in response %}
@@ -193,38 +150,48 @@ li a{
                                     </form>
                                 </li>
                             {% endfor %}
-                        </ul>                        
+                        </ul>
                             <!-- <h2 class="text-uppercase mb-4">Your <strong>Journey</strong> is our priority</h2>
                             <p class="mb-4">Nullam auctor, sapien sit amet lacinia euismod, lorem magna lobortis massa, in tincidunt mi metus quis lectus. Duis nec lobortis velit. Vivamus id magna vulputate, tempor ante eget, tempus augue. Maecenas ultricies neque magna.</p>
-                            <a href="#" class="text-uppercase btn-primary tm-btn">Continue explore</a> -->                              
+                            <a href="#" class="text-uppercase btn-primary tm-btn">Continue explore</a> -->
                         </div>
                     </div>
-                </div>            
+                    {% endif %}
+                </div>
             </section>
-
-                        <section class="p-5 tm-container-outer tm-bg-gray">            
+            <section class="p-5 tm-container-outer tm-bg-gray">
                 <div class="container">
-                    <div class="row">
+                    {% if response2 %}
+                    <div class="row" style="    background: #ade6de;
+    border-radius: 5px;">
                         <div class="col-xs-12 mx-auto tm-about-text-wrap text-center">
+                            <div style="width: 100%;margin-bottom: 25px;
+    border-bottom: 1px solid #69c6ba;">
+
+    <h2 class="text-uppercase mb-4"> List of Users working on the topic selected</h2>
+
+
+</div>
                             <ul class="user-profiles-list-minimal">
                                 {% for doc in response2 %}
                                     <li>
                                         <a href="https://github.com/{{doc}}" target="_blank">{{doc}}</a>
                                     </li>
                                 {% endfor %}
-                            </ul>                        
+                            </ul>
                             <!-- <h2 class="text-uppercase mb-4">Your <strong>Journey</strong> is our priority</h2>
                             <p class="mb-4">Nullam auctor, sapien sit amet lacinia euismod, lorem magna lobortis massa, in tincidunt mi metus quis lectus. Duis nec lobortis velit. Vivamus id magna vulputate, tempor ante eget, tempus augue. Maecenas ultricies neque magna.</p>
-                            <a href="#" class="text-uppercase btn-primary tm-btn">Continue explore</a> -->                              
+                            <a href="#" class="text-uppercase btn-primary tm-btn">Continue explore</a> -->
                         </div>
                     </div>
-                </div>            
+                    {% endif %}
+                </div>
             </section>
-            
+
             <div class="tm-container-outer" id="tm-section-3">
-                
+
                 <div class="tab-content clearfix">
-                	
+
                     <!-- Tab 1 -->
                     <div class="tab-pane fade" id="1a">
                         <div class="tm-recommended-place-wrap">
@@ -233,12 +200,12 @@ li a{
                                 <div class="tm-recommended-description-box">
                                     <h3 class="tm-recommended-title">North Garden Resort</h3>
                                     <p class="tm-text-highlight">One North</p>
-                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>
                                 </div>
                                 <a href="#" class="tm-recommended-price-box">
                                     <p class="tm-recommended-price">$110</p>
                                     <p class="tm-recommended-price-link">Continue Reading</p>
-                                </a>                        
+                                </a>
                             </div>
 
                             <div class="tm-recommended-place">
@@ -246,7 +213,7 @@ li a{
                                 <div class="tm-recommended-description-box">
                                     <h3 class="tm-recommended-title">Felis nec dignissim</h3>
                                     <p class="tm-text-highlight">Two North</p>
-                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>
                                 </div>
                                 <div id="preload-hover-img"></div>
                                 <a href="#" class="tm-recommended-price-box">
@@ -260,7 +227,7 @@ li a{
                                 <div class="tm-recommended-description-box">
                                     <h3 class="tm-recommended-title">Sed fermentum justo</h3>
                                     <p class="tm-text-highlight">Three North</p>
-                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>
                                 </div>
                                 <a href="#" class="tm-recommended-price-box">
                                     <p class="tm-recommended-price">$130</p>
@@ -273,79 +240,59 @@ li a{
                                 <div class="tm-recommended-description-box">
                                     <h3 class="tm-recommended-title">Maecenas ultricies neque</h3>
                                     <p class="tm-text-highlight">Four North</p>
-                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>   
+                                    <p class="tm-text-gray">Sed egestas, odio nec bibendum mattis, quam odio hendrerit risus, eu varius eros lacus sit amet lectus. Donec blandit luctus dictum...</p>
                                 </div>
                                 <a href="#" class="tm-recommended-price-box">
                                     <p class="tm-recommended-price">$140</p>
                                     <p class="tm-recommended-price-link">Continue Reading</p>
                                 </a>
-                            </div>    
-                        </div>                        
+                            </div>
+                        </div>
 
                         <a href="#" class="text-uppercase btn-primary tm-btn mx-auto tm-d-table">Show More Places</a>
                     </div> <!-- tab-pane -->
-                    
+
                     <!-- Tab 2 -->
                     <div class="tab-pane fade" id="2a">
                         tab2
-                        
-                    </div> <!-- tab-pane -->          
-                    
-                    <!-- Tab 3 -->     
+
+                    </div> <!-- tab-pane -->
+
+                    <!-- Tab 3 -->
                     <div class="tab-pane fade" id="3a">
                         tab3
-                        
+
                     </div> <!-- tab-pane -->
-                    
+
                     <!-- Tab 4 -->
                     <div class="tab-pane fade show active" id="4a">
-                    
-                    </div> <!-- tab-pane -->
-                    
+                        </div> <!-- tab-pane -->
+
                     <!-- Tab 5 -->
                     <div class="tab-pane fade" id="5a">
 
-                        
-                    </div> <!-- tab-pane -->   
-                    
-                    <!-- Tab 6 -->            
+
+                    </div> <!-- tab-pane -->
+
+                    <!-- Tab 6 -->
                     <div class="tab-pane fade" id="6a">
 
-                        
+
                     </div> <!-- tab-pane -->
                 </div>
             </div>
 
-            <div class="tm-container-outer tm-position-relative" id="tm-section-4">
-                <div id="google-map"></div>
-                <form action="index.html" method="post" class="tm-contact-form">
-                    <div class="form-group tm-name-container">
-                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name"  required/>
-                    </div>
-                    <div class="form-group tm-email-container">
-                        <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email"  required/>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="contact_subject" name="contact_subject" class="form-control" placeholder="Subject"  required/>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="contact_message" name="contact_message" class="form-control" rows="9" placeholder="Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary tm-btn-primary tm-btn-send text-uppercase">Send Message Now</button>
-                </form>
-            </div> <!-- .tm-container-outer -->
-
             <footer class="tm-container-outer">
-                <p class="mb-0">Copyright © <span class="tm-current-year">2018</span> Your Company 
-                    
-                . Designed by <a rel="nofollow" href="http://www.google.com/+templatemo" target="_parent">Template Mo</a></p>
+                <p class="mb-0">Copyright © <span class="tm-current-year">2018</span> GitSocial
+
+                . Designed by <a rel="nofollow" href="https://linkedin.com/in/vinay92" target="_parent">Vinay Sagar Gonabavi</a></p>
             </footer>
         </div>
     </div> <!-- .main-content -->
 
     <!-- load JS files -->
     <script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js')}}"></script>             <!-- jQuery (https://jquery.com/download/) -->
-    <script src="{{ url_for('static', filename='js/popper.min.js')}}"></script>                    <!-- https://popper.js.org/ -->       
+    <script src="{{ url_for('static', filename='js/popper.min.js')}}"></script>                    <!-- https://popper.js.org/ -->
     <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>                 <!-- https://getbootstrap.com/ -->
     <script src="{{ url_for('static', filename='js/datepicker.min.js')}}"></script>                <!-- https://github.com/qodesmith/datepicker -->
     <script src="{{ url_for('static', filename='js/jquery.singlePageNav.min.js')}}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
@@ -397,9 +344,7 @@ li a{
                 } else {                    
                  $(".tm-top-bar").removeClass("active");
                 }
-            });
-
-            // Smooth scroll to search form
+            });// Smooth scroll to search form
             $('.tm-down-arrow-link').click(function(){
                 $.scrollTo('#tm-section-search', 300, {easing:'linear'});
             });
@@ -431,7 +376,7 @@ li a{
             $('.tm-current-year').text(new Date().getFullYear());  // Update year in copyright           
         });
 
-    </script>             
+    </script>
 
 </body>
 </html>

@@ -3,10 +3,14 @@ from cassandra.cluster import Cluster
 import os
 app = Flask(__name__)
 from cassandra import ReadTimeout
+from datetime import datetime
+import time
+import random
 
-cluster = Cluster(['52.43.163.255', '52.11.91.29', '54.70.77.167', '54.69.253.190'])
+cluster = Cluster(['54.218.131.115', '54.245.65.143', '54.203.126.6', '52.26.161.169'])
 session = cluster.connect('events')
-
+fro = ""
+to = ""
 user_set= set()
 
 @app.route("/")
@@ -20,7 +24,15 @@ def home():
 @app.route("/gitsocial", methods=["GET", "POST"])
 def usertopic():
         user = request.form.get("user")
-        print(user)
+	fromd = request.form.get("from-date")
+	fro = datetime.strptime(fromd, "%a %b %d %Y").strftime("%Y-%m-%d")
+	fromdate = datetime.strptime(fro, "%Y-%m-%d")
+	#fromdate = "10" + "/" + fromd.split(" ")[2] + "/" + fromd.split(" ")[3]
+	tod = request.form.get("to-date")
+	to = datetime.strptime(tod, "%a %b %d %Y").strftime("%Y-%m-%d")
+	todate = datetime.strptime(to, "%Y-%m-%d")
+        #todate = "8" + "/" + tod.split(" ")[2] + "/" + tod.split(" ")[3]
+	print(fromdate)
         if user is not None:
                 query = "SELECT userfollow from useruser WHERE username = '"+user+"'"
                 future = session.execute_async(query)
@@ -39,7 +51,7 @@ def usertopic():
                 topic = set()
                 for i in user_set:
                         if i is not None:
-                                query = "SELECT topic from usertopic WHERE username = '"+i+"'"
+                                query = "SELECT topic from usertopic WHERE username = '"+i+"' and time>'"+fro+"' and time<'"+to+"'"
                                 future = session.execute_async(query)
                                  #print(future)
                                  #print("END")
@@ -59,23 +71,31 @@ def usertopic():
 @app.route("/gitsocial/topic", methods=["GET", "POST"])
 def topicuser():
         topic = request.form.get("topic")
-        print(topic)
+#        fromd = request.form.get("from-date")
+#        fro = datetime.strptime(fromd, "%a %b %d %Y").strftime("%Y-%m-%d")
+#        fromdate = datetime.strptime(fro, "%Y-%m-%d")
+        #fromdate = "10" + "/" + fromd.split(" ")[2] + "/" + fromd.split(" ")[3]
+#        tod = request.form.get("to-date")
+#        to = datetime.strptime(tod, "%a %b %d %Y").strftime("%Y-%m-%d")
+#        todate = datetime.strptime(to, "%Y-%m-%d")
+	print(topic)
         if topic is not None:
-                query_user = "SELECT username from topicuser WHERE topic = '"+topic+"'"
+                query_user = "SELECT username from topicuser WHERE topic = '"+topic+"' and time>'"+fro+"' and time<'"+to+"'"
                 future = session.execute_async(query_user)
-                #print(future)
-                #print("END")
+		print("Here************************")	
+		print(fro)
+                print(to)
                 try:
                         users = future.result()
                 except ReadTimeout:
                         print("Query timed out: ")
-                #print(users[0])
+                #print(users[0][0][0])
                 userlist = set()
                 for i in users:
                         for j in i:
                             for e in j:
-                                if e in user_set:
-                                       userlist.add(e)
+                                if len(userlist) < 5:
+                                	userlist.add(e)
 
                 return render_template("gitsocial/index.html", topic = topic, response2 = userlist)
         return render_template("gitsocial/index.html")
