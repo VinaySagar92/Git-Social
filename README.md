@@ -45,5 +45,5 @@ The dashboard is created using Flask to search for the username for which you ca
 
 # Links to my works:
 #### Google Slides: (http://bit.ly/gitSocial-slides)
-#### Demo: (http://bit.ly/gitSocial-web)
+#### Demo: (http://bit.ly/gitSocial-video)
 #### LinkedIn: (https://linkedin.com/in/vinay92)
